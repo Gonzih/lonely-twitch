@@ -30,7 +30,8 @@
      (prn @current-stream)
      (let [{{:keys [url display_name status game broadcaster_language] :as channel} :channel} @current-stream]
      [:div {:style {:width "100%"}}
-      [:h3 status " [" broadcaster_language "]"]
+      (when broadcaster_language
+        [:h3 status " [" broadcaster_language "]"])
       [:h4
        [:a {:href url :target :_blank} display_name]
        " playing "
