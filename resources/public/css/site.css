@@ -1,6 +1,5 @@
 body {
   font-family: 'Helvetica Neue', Verdana, Helvetica, Arial, sans-serif;
-  max-width: 600px;
   margin: 0 auto;
   padding-top: 72px;
   -webkit-font-smoothing: antialiased;
@@ -32,3 +31,15 @@ a {
 a:hover {
   text-decoration: underline;
 }
+.container {
+  text-align: center;
+}
+.rand-button {
+  padding: 10px;
+  font-size: 1.2em;
+  border: solid 1px black;
+  background: #6441a5;
+  color: #fff;
+}
+
+" vim: ts=2:sts=2:sw=2:expandtab

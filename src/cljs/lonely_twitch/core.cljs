@@ -17,19 +17,21 @@
 ;; Views
 
 (defn home-page []
-  [:div
+  [:div.container
    [:h2 "Twitch should not be lonely!"]
-   [:button {:on-click fetch-rand-stream!} "Show random stream"]
+   [:button {:class :rand-button
+             :on-click fetch-rand-stream!}
+    "Show random stream"]
    (when @current-stream
      (let [channel (get @current-stream "channel")
            url (get channel "url")
            nickname (get channel "display_name")
            status (get channel "status") ]
-     [:div
-      [:div
+     [:div {:style {:width "100%"}}
+      [:h3
        status
        " - "
-       [:a {:href url} nickname]]
+       [:a {:href url :target :_blank} nickname]]
       [:iframe {:src (str url "/embed")
                 :frameborder 0
                 :autoplay "autoplay"
