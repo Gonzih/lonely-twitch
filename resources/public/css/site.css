@@ -1,5 +1,5 @@
 body {
-  font-family: 'Helvetica Neue', Verdana, Helvetica, Arial, sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   margin: 0 auto;
   padding-top: 72px;
   -webkit-font-smoothing: antialiased;
@@ -36,7 +36,7 @@ a:hover {
 }
 .rand-button {
   padding: 10px;
-  font-size: 1.2em;
+  font-size: 1.4em;
   border: solid 1px black;
   background: #6441a5;
   color: #fff;
