@@ -39,8 +39,8 @@
                (inc page))))))
 
 (defn refresh-cache! []
+  (println "START: Refreshing cache")
   (let [data (get-streams!)]
-    (println "START: Refreshing cache")
     (reset! cache data)
     (println "END: Refreshing cache")))
 
@@ -83,8 +83,11 @@
     (when-not (seq @cache) (refresh-cache!))
     (future
       (loop []
-        (refresh-cache!)
-        (Thread/sleep (* 5 60 1000))
+        (try
+          (refresh-cache!)
+          (catch Exception e
+            (println "Exception during refresh call: " (.getMessage e)))
+          (finally (Thread/sleep (* 5 60 1000))))
         (recur)))))
 
 (def app
