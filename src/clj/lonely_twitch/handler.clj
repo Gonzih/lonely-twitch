@@ -9,7 +9,7 @@
             [environ.core :refer [env]]
             [cheshire.core]))
 
-(def cache (atom []))
+(defonce cache (atom []))
 
 (def per-page 100)
 
@@ -23,7 +23,7 @@
 (defn lonely-stream? [{:keys [viewers]}]
   (< viewers 5))
 
-(def pages-limit 10)
+(def pages-limit (if (env :dev) 5 50))
 
 (defn get-streams! []
   (loop [total (number-of-live-streams)
@@ -32,7 +32,7 @@
     (printf "Processing page: %d\n" page)
     (let [data (get-page total page)
           should-stop? (some (complement lonely-stream?) (:streams data))]
-      (if (or should-stop? (> page 5))
+      (if (or should-stop? (>= page pages-limit))
         streams
         (recur total
                (concat streams (:streams data))
@@ -62,7 +62,6 @@
      [:body
       mount-target
       (include-js "js/app.js")]]))
-
 
 (defroutes routes
   (GET "/" [] loading-page)
