@@ -41,5 +41,8 @@ a:hover {
   background: #6441a5;
   color: #fff;
 }
+.rand-button:hover {
+  background: #7550ba;
+}
 
 " vim: ts=2:sts=2:sw=2:expandtab

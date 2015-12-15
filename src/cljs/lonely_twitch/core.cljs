@@ -23,8 +23,7 @@
                :height "40px"
                :style {:top 6 :position :relative}}]
     " should not be lonely!"]
-   [:button {:class :rand-button
-             :on-click fetch-rand-stream!}
+   [:button.rand-button {:on-click fetch-rand-stream!}
     "Show random stream"]
    (when @current-stream
      (prn @current-stream)
