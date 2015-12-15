@@ -23,7 +23,7 @@
 (defn lonely-stream? [{:keys [viewers]}]
   (< viewers 5))
 
-(def pages-limit (if (env :dev) 5 50))
+(def pages-limit (if (env :dev) 5 60))
 
 (defn get-streams! []
   (loop [total (number-of-live-streams)
@@ -60,6 +60,7 @@
               :content "Twitch should not be lonely! Find unpopular stream that you might like!"}]
       [:meta {:name "viewport"
               :content "width=device-width, initial-scale=1"}]
+      [:title "Lonely Twitch"]
       (include-css (if (env :dev) "css/site.css" "css/site.min.css"))]
      [:body
       [:a {:href "https://github.com/Gonzih/lonely-twitch"
