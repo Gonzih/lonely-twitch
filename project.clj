@@ -29,6 +29,7 @@
              :exclusions [org.clojure/clojure]]]
 
   :ring {:handler lonely-twitch.handler/app
+         :init lonely-twitch.handler/init!
          :uberwar-name "lonely-twitch.war"}
 
   :min-lein-version "2.5.0"

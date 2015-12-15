@@ -73,11 +73,13 @@
 
   (not-found "Not Found"))
 
+(defn init! []
+  (if (env :dev)
+    (when-not (seq @cache) (refresh-cache!))
+    (future
+      (refresh-cache!)
+      (Thread/sleep (* 5 60 1000)))))
+
 (def app
   (let [handler (wrap-defaults #'routes site-defaults)]
-    (if (env :dev)
-      (when-not (seq @cache) (refresh-cache!))
-      (future
-        (refresh-cache!)
-        (Thread/sleep (* 5 60 1000))))
     (if (env :dev) (-> handler wrap-exceptions wrap-reload) handler)))
