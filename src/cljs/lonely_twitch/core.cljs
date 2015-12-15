@@ -36,12 +36,12 @@
          game]
         [:div
          [:iframe {:src (str url "/embed")
-                   :frameborder 0
-                   :autoplay "autoplay"
+                   :frameBorder 0
+                   :autoPlay "autoplay"
                    :width "1024px"
                    :height "576px"}]
          [:iframe {:src (str url "/chat?popup=true")
-                   :frameborder 0
+                   :frameBorder 0
                    :width "300px"
                    :height "576px"}]]]))])
 
