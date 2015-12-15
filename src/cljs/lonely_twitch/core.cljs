@@ -26,20 +26,24 @@
    [:button.rand-button {:on-click fetch-rand-stream!}
     "Show random stream"]
    (when @current-stream
-     (prn @current-stream)
      (let [{{:keys [url display_name status game broadcaster_language] :as channel} :channel} @current-stream]
-     [:div {:style {:width "100%"}}
-      (when broadcaster_language
-        [:h3 status " [" broadcaster_language "]"])
-      [:h4
-       [:a {:href url :target :_blank} display_name]
-       " playing "
-       game]
-      [:iframe {:src (str url "/embed")
-                :frameborder 0
-                :autoplay "autoplay"
-                :width "1024px"
-                :height "576px"}]]))])
+       [:div {:style {:width "100%"}}
+        (when broadcaster_language
+          [:h3 status " [" broadcaster_language "]"])
+        [:h4
+         [:a {:href url :target :_blank} display_name]
+         " playing "
+         game]
+        [:div
+         [:iframe {:src (str url "/embed")
+                   :frameborder 0
+                   :autoplay "autoplay"
+                   :width "1024px"
+                   :height "576px"}]
+         [:iframe {:src (str url "/chat?popup=true")
+                   :frameborder 0
+                   :width "300px"
+                   :height "576px"}]]]))])
 
 (defn current-page []
   [:div [(session/get :current-page)]])
