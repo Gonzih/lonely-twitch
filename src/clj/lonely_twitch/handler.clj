@@ -45,7 +45,8 @@
     (println "END: Refreshing cache")))
 
 (defn rand-stream []
-  (rand-nth @cache))
+  (when (seq @cache)
+    (rand-nth @cache)))
 
 (def mount-target
   [:div#app])
@@ -73,8 +74,10 @@
   (if (env :dev)
     (when-not (seq @cache) (refresh-cache!))
     (future
-      (refresh-cache!)
-      (Thread/sleep (* 5 60 1000)))))
+      (loop []
+        (refresh-cache!)
+        (Thread/sleep (* 5 60 1000))
+        (recur)))))
 
 (def app
   (let [handler (wrap-defaults #'routes site-defaults)]
