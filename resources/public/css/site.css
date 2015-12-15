@@ -47,15 +47,14 @@ a:hover {
 }
 
 iframe {
+  border: 1px solid #dedede;
 }
 
 iframe.video {
-  border: 1px solid black;
   border-right: none;
 }
 
 iframe.chat {
-  border: 1px solid #dedede;
   border-left: none;
 }
 
