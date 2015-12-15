@@ -6,6 +6,7 @@ body {
   font-size: 1.125em;
   color: #333;
   line-height: 1.5em;
+  background: #f2f2f2;
 }
 
 h1, h2, h3 {
@@ -43,6 +44,19 @@ a:hover {
 }
 .rand-button:hover {
   background: #7550ba;
+}
+
+iframe {
+}
+
+iframe.video {
+  border: 1px solid black;
+  border-right: none;
+}
+
+iframe.chat {
+  border: 1px solid #dedede;
+  border-left: none;
 }
 
 " vim: ts=2:sts=2:sw=2:expandtab

@@ -35,15 +35,15 @@
          " playing "
          game]
         [:div
-         [:iframe {:src (str url "/embed")
-                   :frameBorder 0
-                   :autoPlay "autoplay"
-                   :width "1024px"
-                   :height "576px"}]
-         [:iframe {:src (str url "/chat?popup=true")
-                   :frameBorder 0
-                   :width "300px"
-                   :height "576px"}]]]))])
+         [:iframe.video {:src (str url "/embed")
+                         :frameBorder 0
+                         :autoPlay "autoplay"
+                         :width "1024px"
+                         :height "576px"}]
+         [:iframe.chat {:src (str url "/chat?popup=true")
+                        :frameBorder 0
+                        :width "300px"
+                        :height "576px"}]]]))])
 
 (defn current-page []
   [:div [(session/get :current-page)]])
