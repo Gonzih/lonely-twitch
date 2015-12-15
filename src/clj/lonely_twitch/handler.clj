@@ -48,11 +48,7 @@
   (rand-nth @cache))
 
 (def mount-target
-  [:div#app
-   [:h3 "ClojureScript has not been compiled!"]
-   [:p "please run "
-    [:b "lein figwheel"]
-    " in order to start the compiler"]])
+  [:div#app])
 
 (def loading-page
   (html
@@ -73,7 +69,7 @@
 
   (not-found "Not Found"))
 
-(defn init! []
+(defn init []
   (if (env :dev)
     (when-not (seq @cache) (refresh-cache!))
     (future
