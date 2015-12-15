@@ -56,6 +56,8 @@
     [:html
      [:head
       [:meta {:charset "utf-8"}]
+      [:meta {:name "description"
+              :content "Twitch should not be lonely! Find unpopular stream that you might like!"}]
       [:meta {:name "viewport"
               :content "width=device-width, initial-scale=1"}]
       (include-css (if (env :dev) "css/site.css" "css/site.min.css"))]
