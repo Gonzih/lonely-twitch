@@ -60,7 +60,9 @@
     (let [stream (rand-nth @cache)
           self-link (-> stream :_links :self)
           fresh-stream-info (-> self-link slurp json->clj :stream)]
-      fresh-stream-info)))
+      (if fresh-stream-info
+        fresh-stream-info
+        (recur)))))
 
 (def mount-target
   [:div#app])
