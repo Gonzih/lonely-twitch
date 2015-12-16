@@ -55,7 +55,7 @@
     (reset! cache data)
     (println "END: Refreshing cache")))
 
-(defn rand-stream []
+(defn rand-stream! []
   (when (seq @cache)
     (let [stream (rand-nth @cache)
           self-link (-> stream :_links :self)
@@ -90,7 +90,7 @@
 
 (defroutes routes
   (GET "/" [] loading-page)
-  (GET "/rand" [] (clj->json (rand-stream)))
+  (GET "/rand" [] (clj->json (rand-stream!)))
 
   (not-found "Not Found"))
 
