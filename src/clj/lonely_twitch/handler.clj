@@ -13,12 +13,23 @@
 
 (def per-page 100)
 
+(defn json->clj [s]
+  (cheshire.core/parse-string s true))
+
+(defn clj->json [x]
+  (cheshire.core/generate-string x))
+
 (defn number-of-live-streams []
-  (:_total (cheshire.core/parse-string (slurp "https://api.twitch.tv/kraken/streams?limit=1&stream_type=live") true)))
+  (-> "https://api.twitch.tv/kraken/streams?limit=1&stream_type=live"
+      slurp
+      json->clj
+      :_total))
 
 (defn get-page [total page]
   (let [offset (- total (* per-page page))]
-    (cheshire.core/parse-string (slurp (format "https://api.twitch.tv/kraken/streams?limit=%d&stream_type=live&offset=%d" per-page offset)) true)))
+    (-> (format "https://api.twitch.tv/kraken/streams?limit=%d&stream_type=live&offset=%d" per-page offset)
+        slurp
+        json->clj)))
 
 (defn lonely-stream? [{:keys [viewers]}]
   (< viewers 5))
@@ -46,7 +57,10 @@
 
 (defn rand-stream []
   (when (seq @cache)
-    (rand-nth @cache)))
+    (let [stream (rand-nth @cache)
+          self-link (-> stream :_links :self)
+          fresh-stream-info (-> self-link slurp json->clj :stream)]
+      fresh-stream-info)))
 
 (def mount-target
   [:div#app])
@@ -74,7 +88,7 @@
 
 (defroutes routes
   (GET "/" [] loading-page)
-  (GET "/rand" [] (cheshire.core/generate-string (rand-stream)))
+  (GET "/rand" [] (clj->json (rand-stream)))
 
   (not-found "Not Found"))
 
