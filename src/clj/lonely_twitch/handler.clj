@@ -23,7 +23,7 @@
 (defn lonely-stream? [{:keys [viewers]}]
   (< viewers 5))
 
-(def pages-limit (if (env :dev) 5 60))
+(def pages-limit (if (env :dev) 5 70))
 
 (defn get-streams! []
   (loop [total (number-of-live-streams)
