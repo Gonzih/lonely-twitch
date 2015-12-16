@@ -44,7 +44,7 @@
     (let [data (get-page total page)
           should-stop? (some (complement lonely-stream?) (:streams data))]
       (if (or should-stop? (>= page pages-limit))
-        streams
+        (vec streams)
         (recur total
                (concat streams (:streams data))
                (inc page))))))
