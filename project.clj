@@ -21,6 +21,7 @@
                  [venantius/accountant "0.1.5"
                   :exclusions [org.clojure/tools.reader]]
                  [cheshire "5.5.0"]
+                 [clj-http "2.0.0"]
                  [cljs-ajax "0.5.2"]]
 
   :plugins [[lein-environ "1.0.1"]

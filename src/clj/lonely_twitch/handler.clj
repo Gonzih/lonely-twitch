@@ -7,6 +7,7 @@
             [prone.middleware :refer [wrap-exceptions]]
             [ring.middleware.reload :refer [wrap-reload]]
             [environ.core :refer [env]]
+            [clj-http.client :as http]
             [cheshire.core]))
 
 (defonce cache (atom []))
@@ -21,14 +22,16 @@
 
 (defn number-of-live-streams []
   (-> "https://api.twitch.tv/kraken/streams?limit=1&stream_type=live"
-      slurp
+      http/get
+      :body
       json->clj
       :_total))
 
 (defn get-page [total page]
   (let [offset (- total (* per-page page))]
     (-> (format "https://api.twitch.tv/kraken/streams?limit=%d&stream_type=live&offset=%d" per-page offset)
-        slurp
+        http/get
+        :body
         json->clj)))
 
 (defn lonely-stream? [{:keys [viewers]}]
@@ -59,7 +62,7 @@
   (when (seq @cache)
     (let [stream (rand-nth @cache)
           self-link (-> stream :_links :self)
-          fresh-stream-info (-> self-link slurp json->clj :stream)]
+          fresh-stream-info (-> self-link http/get :body json->clj :stream)]
       (if fresh-stream-info
         fresh-stream-info
         (recur)))))
