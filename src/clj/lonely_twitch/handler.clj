@@ -106,7 +106,7 @@
           (refresh-cache!)
           (catch Exception e
             (println "Exception during refresh call: " (.getMessage e)))
-          (finally (Thread/sleep (* 5 60 1000))))
+          (finally (Thread/sleep (* 20 60 1000))))
         (recur)))))
 
 (def app
