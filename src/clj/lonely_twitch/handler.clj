@@ -20,11 +20,8 @@
 (defn clj->json [x]
   (cheshire.core/generate-string x))
 
-(defn client-id []
-  (System/getenv "CLIENT_ID"))
-
 (defn slurp-url [url]
-  (http/get url {:headers {:Client-Id (client-id)}}))
+  (http/get url {:headers {:Client-Id "iks0is28m281tc7gbov0ia4yyxgtbv8"}}))
 
 (defn number-of-live-streams []
   (-> "https://api.twitch.tv/kraken/streams?limit=1&stream_type=live"
