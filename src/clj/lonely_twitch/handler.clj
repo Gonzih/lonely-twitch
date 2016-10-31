@@ -20,9 +20,15 @@
 (defn clj->json [x]
   (cheshire.core/generate-string x))
 
+(defn client-id []
+  (System/getenv "CLIENT_ID"))
+
+(defn slurp-url [url]
+  (http/get url {:headers {:Client-Id (client-id)}}))
+
 (defn number-of-live-streams []
   (-> "https://api.twitch.tv/kraken/streams?limit=1&stream_type=live"
-      http/get
+      slurp-url
       :body
       json->clj
       :_total))
@@ -30,7 +36,7 @@
 (defn get-page [total page]
   (let [offset (- total (* per-page page))]
     (-> (format "https://api.twitch.tv/kraken/streams?limit=%d&stream_type=live&offset=%d" per-page offset)
-        http/get
+        slurp-url
         :body
         json->clj)))
 
@@ -62,7 +68,7 @@
   (when (seq @cache)
     (let [stream (rand-nth @cache)
           self-link (-> stream :_links :self)
-          fresh-stream-info (-> self-link http/get :body json->clj :stream)]
+          fresh-stream-info (-> self-link slurp-url :body json->clj :stream)]
       (if fresh-stream-info
         fresh-stream-info
         (recur)))))
